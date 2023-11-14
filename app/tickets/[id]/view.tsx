@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default function View({ ticket }: PageProps) {
-  let ticketCopy = _.clone(ticket)
+  const ticketCopy = _.clone(ticket)
   let [state, setState] = useState({
     ticket,
   })

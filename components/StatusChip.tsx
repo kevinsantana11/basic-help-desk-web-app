@@ -1,8 +1,6 @@
 import { Enums } from "@/utils/supabase/database.types";
 
-  
-
-export default ({ status }: { status: Enums<'Status'> }) => {
+export default function StatusChip({ status }: { status: Enums<'Status'> }) {
   let statusClasses = ['rounded', 'p-1']
   switch (status) {
     case 'NEW':
