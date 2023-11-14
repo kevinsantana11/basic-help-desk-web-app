@@ -1,5 +1,5 @@
 ## Help Desk Web Application
-You can view a fully working demo at [Help Desk Web Application on Supabase](https://demo-nextjs-with-supabase.vercel.app/).
+You can view a fully working demo at [Help Desk Web Application on Vercel](https://basic-help-desk-web-app.vercel.app).
 
 This application is a basic help desk web application using React, Next.js, Tailwinds CSS and Supabase+Postgres
 
