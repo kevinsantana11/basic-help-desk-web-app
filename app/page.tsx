@@ -6,7 +6,11 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 
-export default async function Page({searchParams}: {searchParams: {force: boolean}} = {searchParams: {force: false}}) {
+interface PageProps {
+  searchParams: {force: boolean | undefined}
+}
+
+export default async function Page({ searchParams }: PageProps) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   console.log("got the params", searchParams)
