@@ -1,7 +1,7 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import {createClient as cc} from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
-import { Database } from '@/utils/supabase/database.types'
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createClient as cc } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
+import { Database } from "@/utils/supabase/database.types";
 
 export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
   return createServerClient<Database>(
@@ -10,11 +10,11 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value
+          return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
           try {
-            cookieStore.set({ name, value, ...options })
+            cookieStore.set({ name, value, ...options });
           } catch (error) {
             // The `set` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
@@ -23,7 +23,7 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
         },
         remove(name: string, options: CookieOptions) {
           try {
-            cookieStore.set({ name, value: '', ...options })
+            cookieStore.set({ name, value: "", ...options });
           } catch (error) {
             // The `delete` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
@@ -31,9 +31,9 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>) => {
           }
         },
       },
-    }
-  )
-}
+    },
+  );
+};
 
 export const createAdminClient = () => {
   return cc<Database>(
@@ -42,8 +42,8 @@ export const createAdminClient = () => {
     {
       auth: {
         autoRefreshToken: false,
-        persistSession: false
-      }
-    }
-  )
-}
+        persistSession: false,
+      },
+    },
+  );
+};

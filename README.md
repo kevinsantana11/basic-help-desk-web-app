@@ -1,22 +1,26 @@
 ## Help Desk Web Application
+
 You can view a fully working demo at [Help Desk Web Application on Vercel](https://basic-help-desk-web-app.vercel.app).
 
 This application is a basic help desk web application using React, Next.js, Tailwinds CSS and Supabase+Postgres
 
 ### Requirements
+
 #### Functional
-* all users can define their role ["role", "end-user"]
-* end users can submit support ticket requests
-* end users can update their support ticket requests
-* end users can view a detailed view of their support ticket requests
-* end users can view a list of their support ticket requests
-* end users can add comments to the support request ticket
-* admin users can view a list of all support request tickets
-* admin users can view a detailed view of the support request ticket 
-* admin users can add comments to the support request ticket 
-* The support ticket requests should should contain information such as: name, email and description and status["new", "in-progress", "resolved"]
+
+- all users can define their role ["role", "end-user"]
+- end users can submit support ticket requests
+- end users can update their support ticket requests
+- end users can view a detailed view of their support ticket requests
+- end users can view a list of their support ticket requests
+- end users can add comments to the support request ticket
+- admin users can view a list of all support request tickets
+- admin users can view a detailed view of the support request ticket
+- admin users can add comments to the support request ticket
+- The support ticket requests should should contain information such as: name, email and description and status["new", "in-progress", "resolved"]
 
 ## Clone and run locally
+
 0. Clone repository
 1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
 2. Rename `.env.local.example` to `.env.local` and update the following:
