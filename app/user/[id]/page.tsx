@@ -19,8 +19,10 @@ export default async function Page() {
       .insert({ title, description, status: "NEW" })
       .select();
 
-    if (createTicketReq.error === null && createTicketReq.data.length == 1) {
+    if (createTicketReq.error === null) {
       redirect(`/tickets/${createTicketReq.data[0].id}`);
+    } else {
+      redirect("/error")
     }
   };
 
