@@ -4,6 +4,7 @@ import { ArrowIn, Trash } from "@/components/icons";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import StatusChip from "./StatusChip";
+import moment from "moment";
 
 interface TicketCardProps {
   ticket: Tables<"tickets"> & { email: string };
@@ -54,23 +55,41 @@ export default function TicketCard({ ticket }: TicketCardProps) {
         </form>
       </div>
       <div aria-label="body">
-        <div>
+        <div className="mb-2">
           <label>
             <b>Email</b>
           </label>
-          <p className="text-slate-300">{ticket.email}</p>
+          <p className="text-slate-300">
+            {ticket.email}
+          </p>
         </div>
-        <div>
+        <div className="mb-2">
           <label>
             <b>Description</b>
           </label>
-          <p className="text-slate-300 ">{ticket.description}</p>
+          <p className="text-slate-300">
+            {ticket.description}
+          </p>
         </div>
-        <div>
+        <div className="mb-2">
           <label>
             <b>Created At</b>
           </label>
-          <p className="text-slate-300">{ticket.created_at}</p>
+          <p className="text-slate-300">
+            {
+              moment(ticket.created_at).format("MMMM Do YYYY, h:mm:ss A (ZZ)")
+            }
+          </p>
+        </div>
+        <div className="mb-2">
+          <label>
+            <b>Updated At</b>
+          </label>
+          <p className="text-slate-300">
+            {
+              moment(ticket.updated_at).format("MMMM Do YYYY, h:mm:ss A (ZZ)")
+            }
+            </p>
         </div>
         <div>
           <label>

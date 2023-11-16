@@ -23,5 +23,9 @@ export default async function Page() {
     }
   }
 
-  return <TicketList tickets={tickets} />;
+  return (
+    <div className="bg-slate-800 p-5 my-3 rounded">
+      <TicketList tickets={tickets} />
+    </div>
+  )
 }

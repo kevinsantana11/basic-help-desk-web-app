@@ -58,8 +58,10 @@ export default async function Page({ searchParams }: PageProps) {
     };
 
     return (
-      <div>
-        <span className="text-2xl">Select your user role</span>
+      <div className="flex flex-col items-center">
+        <div className="w-full rounded p-2 my-2 border-2 border-slate-900 text-center">
+          <span className="text-2xl">Select your user role</span>
+        </div>
         <form className="flex flex-row gap-y-5 justify-center gap-x-10 my-10">
           <div className="w-40 h-40 p-1 rounded bg-slate-500 flex items-center justify-center">
             <button
