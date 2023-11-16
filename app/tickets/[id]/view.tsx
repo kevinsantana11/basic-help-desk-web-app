@@ -200,6 +200,7 @@ export default function View({ isCreator, ticket }: PageProps) {
             className="text-black rounded p-1"
             name="content"
             placeholder="comment text here..."
+            required
           />
           <div className="flex flex-row">
             <button

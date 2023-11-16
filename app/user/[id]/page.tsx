@@ -5,7 +5,13 @@ import { redirect } from "next/navigation";
 import TicketList from "@/components/TicketList";
 import { Tables } from "@/utils/supabase/database.types";
 
-export default async function Page() {
+interface PageProps {
+  params: {
+    id: string
+  }
+}
+
+export default async function Page({ params }: PageProps) {
   const addTicket = async (form: FormData) => {
     "use server";
 
@@ -31,14 +37,14 @@ export default async function Page() {
   let getUserReq = await supabase.auth.getUser();
 
   let tickets: (Tables<"tickets"> & { email: string })[] = [];
-  if (getUserReq.error === null) {
+  if (!getUserReq.error && getUserReq.data.user.id === params.id) {
     let getTicketsReq = await supabase
       .from("tickets")
       .select()
       .eq("user_id", getUserReq.data.user.id)
       .limit(10);
 
-    if (getTicketsReq.error === null) {
+    if (!getTicketsReq.error) {
       for (let ticket of getTicketsReq.data) {
         tickets.push({
           email: getUserReq.data.user.email
@@ -48,6 +54,10 @@ export default async function Page() {
         });
       }
     }
+  } else if (!getUserReq.error && getUserReq.data.user.id !== params.id) {
+    redirect("/403");
+  } else {
+    redirect("/login");
   }
 
   return (

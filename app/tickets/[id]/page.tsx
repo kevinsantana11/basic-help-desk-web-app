@@ -50,20 +50,28 @@ export default async function Page({ params }: { params: { id: string } }) {
       }
     }
 
-    let getThisUserReq = await supabase.auth.getUser();
-    if (!getThisUserReq.error && getTicketUserReq.data.user) {
-      return (
-        <View
-          isCreator={getThisUserReq.data.user.id === getTicketUserReq.data.user.id}
-          ticket={{
-            ...getTicketReq.data,
-            comments,
-            email,
-          }}
-        />
-      );
-    }
+    let getSession = await supabase.auth.getSession();
+    if (!getSession.error && getSession.data.session && getTicketUserReq.data.user) {
+      let getUserRole = await supabase.from("users").select().eq("id", getSession.data.session.user.id).single();
 
-    redirect("/error")
+      if (!getUserRole.error 
+          && (getUserRole.data.role === "ADMIN" 
+          || getSession.data.session.user.id === getTicketUserReq.data.user.id)) {
+        return (
+          <View
+            isCreator={getSession.data.session.user.id === getTicketUserReq.data.user.id}
+            ticket={{
+              ...getTicketReq.data,
+              comments,
+              email,
+            }}
+          />
+        );
+      } else {
+        redirect("/403");
+      }
+    }
   }
+
+  redirect("/login");
 }

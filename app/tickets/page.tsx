@@ -2,6 +2,7 @@ import TicketList from "@/components/TicketList";
 import { Tables } from "@/utils/supabase/database.types";
 import { createAdminClient, createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
   let cookieStore = cookies();
@@ -20,6 +21,23 @@ export default async function Page() {
         email: user && user.email ? user.email : "N/A",
         ...ticket,
       });
+    }
+  }
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/login");
+  } else {
+    const getUserRole = await supabase
+      .from("users")
+      .select()
+      .eq("id", user.id)
+      .single();
+    
+    if (!getUserRole.error && getUserRole.data.role !== "ADMIN") {
+      redirect("/403");
+    } else if (getUserRole.error) {
+      redirect("/");
     }
   }
 

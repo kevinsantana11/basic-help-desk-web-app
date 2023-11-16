@@ -1,7 +1,5 @@
 import { Tables } from "@/utils/supabase/database.types";
-import { createClient } from "@/utils/supabase/server";
-import { ArrowIn, Trash } from "@/components/icons";
-import { cookies } from "next/headers";
+import { ArrowIn } from "@/components/icons";
 import { redirect } from "next/navigation";
 import StatusChip from "./StatusChip";
 import moment from "moment";
@@ -11,22 +9,6 @@ interface TicketCardProps {
 }
 
 export default function TicketCard({ ticket }: TicketCardProps) {
-  const deleteTicket = async (form: FormData) => {
-    "use server";
-    let ticketId = form.get("ticket-id") as string;
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { error } = await supabase
-      .from("tickets")
-      .delete()
-      .eq("id", ticketId);
-
-    if (error) {
-      console.log("There was some kind of error deleting the ticket: ", error);
-    }
-    redirect("/tickets");
-  };
-
   const viewTicket = async (form: FormData) => {
     "use server";
     let ticketId = form.get("ticket-id") as string;
@@ -41,9 +23,6 @@ export default function TicketCard({ ticket }: TicketCardProps) {
           <div className="w-1/4 flex flex-row gap-x-2 justify-end">
             <button aria-label="view" type="submit" formAction={viewTicket}>
               <ArrowIn className="stroke-blue-400" />
-            </button>
-            <button aria-label="delete" type="submit" formAction={deleteTicket}>
-              <Trash className="stroke-red-400" />
             </button>
           </div>
           <input
